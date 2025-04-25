@@ -1,0 +1,66 @@
+# 🧠 Yutica Model Notes & Growth Predictions
+
+This document captures model-specific notes, growth expectations, indexing needs, and optimization strategies. It serves as a reference for developers and DBAs to design and scale Yutica's data layer intelligently.
+
+---
+
+## ✅ Structure Template for Each Model
+
+### 📦 Model: `<ModelName>` (file: `models/<domain>/<model>.go`)
+- **Primary Growth Driver:** `<why this model will grow>`
+- **Expected Volume:** `<e.g., thousands/month, millions/year>`
+- **Index Strategy:**
+  - `field_name`: `index` or `uniqueIndex`
+  - Composite Index (if any): `fieldA, fieldB`
+- **Partitioning Plan (if needed):**
+  - `field`: `date`, `tenant_id`, etc.
+  - Type: `RANGE`, `LIST`, `HASH`
+- **Archival Strategy:**
+  - Offload after X months to cold storage or archive table
+- **Retention Policy:**
+  - Keep live data for X months
+  - Archive/delete beyond Y years
+
+---
+
+## 🧾 Defined Notes
+
+### 🔁 `transactions/transaction.go`
+- **Growth Driver:** Every top-up, M-Pesa payment, or wallet debit
+- **Volume:** 100K–1M/year
+- **Indexes:**
+  - `tenant_id` (index)
+  - `meter_id` (index)
+  - `created_at` (index)
+  - `status` (index)
+- **Composite Index:** `tenant_id, created_at`
+- **Partitioning Plan:** RANGE by `created_at` monthly
+- **Archival:** Move data older than 2 years to `transactions_archive`
+- **Retention:** Keep last 24 months live
+
+### 📈 `usage/daily.go`
+- **Growth Driver:** Daily meter reading per meter (water/power)
+- **Volume:** 100K–10M/year depending on meters
+- **Indexes:**
+  - `meter_id` (index)
+  - `usage_date` (index)
+- **Composite Index:** `meter_id, usage_date`
+- **Partitioning Plan:** RANGE by `usage_date`
+- **Archival:** 12 months live, archive rest
+- **Retention:** Archive indefinitely
+
+### 🧾 `billing/invoice.go`
+- **Growth Driver:** Monthly postpaid invoices for tenants
+- **Volume:** Thousands/month
+- **Indexes:**
+  - `tenant_id` (index)
+  - `status` (index)
+  - `invoice_date` (index)
+- **Partitioning:** Optional for scale; RANGE by `invoice_date`
+- **Archival:** Invoices older than 5 years may be archived
+- **Retention:** 7 years for compliance
+
+---
+
+_Add additional models as you implement them. This document ensures proactive planning for performance, storage, and data governance._
+
