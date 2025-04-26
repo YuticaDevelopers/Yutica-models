@@ -2,22 +2,14 @@
 package accounts
 
 import (
-	"time"
-
 	"github.com/YuticaDevelopers/Yutica-models/models/common"
 )
 
 type Account struct {
 	common.BaseModel
 
-	Name        string     `gorm:"type:varchar(100);uniqueIndex" json:"name"`
-	Email       string     `gorm:"type:varchar(100);uniqueIndex" json:"email"`
-	Phone       string     `gorm:"type:varchar(20)" json:"phone"`
-	Role        string     `gorm:"type:varchar(50);index" json:"role"` // e.g., admin, tenant, technician
-	IsActive    bool       `json:"is_active"`
-	CreatedAt   time.Time  `json:"created_at"`
-	UpdatedAt   time.Time  `json:"updated_at"`
-	LastLoginAt *time.Time `json:"last_login_at,omitempty"`
+	AccountName string `json:"account_name"`
+	IsActive    bool   `json:"is_active"`
 }
 
 // {
