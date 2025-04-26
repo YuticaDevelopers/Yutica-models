@@ -26,3 +26,31 @@ const (
 	// System
 	PermAuditAccess Permission = "audit:read"
 )
+
+// AllPermissions returns a list of all available permissions
+func AllPermissions() []Permission {
+	return []Permission{
+		// Account permissions
+		PermCreateAccount,
+		PermViewAccount,
+		PermEditAccount,
+
+		// Tenant permissions
+		PermCreateTenant,
+		PermViewTenant,
+
+		// Meter permissions
+		PermReadMeter,
+		PermUpdateMeter,
+
+		// Billing permissions
+		PermViewBilling,
+		PermGenerateInvoice,
+
+		// Support permissions
+		PermManageTickets,
+
+		// System permissions
+		PermAuditAccess,
+	}
+}
