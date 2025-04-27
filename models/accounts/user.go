@@ -15,7 +15,7 @@ type User struct {
 	Email       string              `gorm:"type:varchar(100);uniqueIndex" json:"email"`
 	Phone       string              `gorm:"type:varchar(20);uniqueIndex" json:"phone"`
 	Username    string              `gorm:"type:varchar(30);uniqueIndex" json:"username"`
-	Password    string              `gorm:"type:varchar(255)" json:"-"` // hashed password
+	Password    string              `gorm:"type:varchar(255)" json:"password"` // hashed password
 	Role        common.UserRole     `gorm:"type:varchar(20);index" json:"role"`
 	Permissions []common.Permission `gorm:"-" json:"permissions,omitempty"` // dynamically loaded based on role
 	IsActive    bool                `json:"is_active"`
