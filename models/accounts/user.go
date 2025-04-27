@@ -18,8 +18,8 @@ type User struct {
 	Password  string          `gorm:"type:varchar(255)" json:"password"` // hashed password
 	Role      common.UserRole `gorm:"type:varchar(20);index" json:"role"`
 
-	Permissions []common.Permission `gorm:"type:jsonb" json:"permissions,omitempty"` // 🔥 Save permissions into db as JSONB array
-	IsActive    bool                `json:"is_active"`
+	Permissions string `gorm:"type:jsonb" json:"permissions"`
+	IsActive    bool   `json:"is_active"`
 
 	AccountIDs  []uint `gorm:"-" json:"account_ids,omitempty"`  // account_user may belong to multiple accounts
 	PropertyIDs []uint `gorm:"-" json:"property_ids,omitempty"` // property_user may have access to one or more properties
