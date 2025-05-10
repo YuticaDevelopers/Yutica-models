@@ -9,7 +9,7 @@ import (
 
 type AuditLog struct {
 	common.BaseModel
-
+	AccountID uint      `gorm:"index" json:"account_id"`            // ID of the company/tenant
 	ActorID   uint      `gorm:"index" json:"actor_id"`              // ID of the user who performed the action
 	Action    string    `gorm:"type:varchar(50)" json:"action"`     // e.g., create, update, delete
 	Entity    string    `gorm:"type:varchar(100)" json:"entity"`    // e.g., User, Invoice
