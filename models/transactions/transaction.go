@@ -15,7 +15,7 @@ type Transaction struct {
 	Amount     float64                  `json:"amount"`
 	Type       common.TransactionType   `gorm:"type:varchar(20);index" json:"type"`
 	Status     common.TransactionStatus `gorm:"type:varchar(20);index" json:"status"`
-	Reference  string                   `gorm:"uniqueIndex" json:"reference"` // e.g. M-Pesa code
+	Reference  string                   `gorm:"uniqueIndex" json:"reference"` // e.g. M-Pesa status
 
 }
 

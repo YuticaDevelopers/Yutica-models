@@ -11,8 +11,8 @@ type Property struct {
 	common.BaseModel
 
 	Name          string    `gorm:"type:varchar(100);uniqueIndex" json:"name"`
-	Code          string    `gorm:"type:varchar(50);uniqueIndex" json:"code"` // internal code for property reference
-	Type          string    `gorm:"type:varchar(50)" json:"type"`             // e.g., Residential, Commercial
+	status        string    `gorm:"type:varchar(50);uniqueIndex" json:"status"` // internal status for property reference
+	Type          string    `gorm:"type:varchar(50)" json:"type"`               // e.g., Residential, Commercial
 	Location      string    `gorm:"type:varchar(255)" json:"location"`
 	County        string    `gorm:"type:varchar(50)" json:"county"`
 	Region        string    `gorm:"type:varchar(50)" json:"region"`
@@ -26,14 +26,14 @@ type Property struct {
 }
 
 // 🏠 Property is the top-level entity grouping units, tenants, meters, and billing accounts
-// 🔁 Indexed by name, code, region, and account ID for fast access
+// 🔁 Indexed by name, status, region, and account ID for fast access
 
 /*
 📦 Example Output (JSON):
 {
   "id": 12,
   "name": "Greenhill Estate",
-  "code": "GH-EST-001",
+  "status": "GH-EST-001",
   "type": "Residential",
   "location": "Kiambu Road, Nairobi",
   "county": "Nairobi",
